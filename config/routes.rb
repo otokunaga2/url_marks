@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :bookmarks
+
+  resources :users
+
   get 'dynamic_pages/home'
 
   get 'dynamic_pages/help'

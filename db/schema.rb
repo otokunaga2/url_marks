@@ -11,16 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505063610) do
+ActiveRecord::Schema.define(version: 20150505093832) do
 
   create_table "bookmarks", force: :cascade do |t|
-    t.integer  "user_id"
     t.string   "url"
-    t.text     "description"
-    t.integer  "read_flag"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "my_description"
+    t.boolean  "read_flag"
+    t.string   "title"
+    t.string   "favicon"
+    t.text     "object_description"
+    t.text     "object_image"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "user_id"
   end
+
+  add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

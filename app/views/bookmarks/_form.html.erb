@@ -16,12 +16,28 @@
     <%= f.text_field :url %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.label :my_description %><br>
+    <%= f.text_field :my_description %>
   </div>
   <div class="field">
     <%= f.label :read_flag %><br>
-    <%= f.number_field :read_flag %>
+    <%= f.check_box :read_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :favicon %><br>
+    <%= f.text_field :favicon %>
+  </div>
+  <div class="field">
+    <%= f.label :object_description %><br>
+    <%= f.text_area :object_description %>
+  </div>
+  <div class="field">
+    <%= f.label :object_image %><br>
+    <%= f.text_area :object_image %>
   </div>
   <div class="actions">
     <%= f.submit %>

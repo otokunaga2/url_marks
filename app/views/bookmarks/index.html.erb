@@ -5,8 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Url</th>
+      <th><%= @object.images.first.src.to_s%></th>
       <th>Description</th>
       <th>Read flag</th>
       <th colspan="3"></th>
@@ -16,8 +15,7 @@
   <tbody>
     <% @bookmarks.each do |bookmark| %>
       <tr>
-        <td><%= bookmark.user_id %></td>
-        <td><%= bookmark.url %></td>
+        <td><%= link_to '#{bookmark.url}',bookmark.url %></td>
         <td><%= bookmark.description %></td>
         <td><%= bookmark.read_flag %></td>
         <td><%= link_to 'Show', bookmark %></td>

@@ -1,3 +1,4 @@
+require 'link_thumbnailer'
 class BookmarksController < ApplicationController
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
 
@@ -25,7 +26,6 @@ class BookmarksController < ApplicationController
   # POST /bookmarks.json
   def create
     @bookmark = Bookmark.new(bookmark_params)
-
     respond_to do |format|
       if @bookmark.save
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
@@ -69,6 +69,6 @@ class BookmarksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bookmark_params
-      params.require(:bookmark).permit(:user_id, :url, :description, :read_flag)
+      params.require(:bookmark).permit(:url, :description, :read_flag)
     end
 end

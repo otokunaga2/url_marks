@@ -24,5 +24,7 @@ module UrlMarker
     config.web_console.whitelisted_ips = '133.30.159.204'
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    #  glyphicons working
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end

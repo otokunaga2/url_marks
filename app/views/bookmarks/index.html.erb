@@ -2,9 +2,6 @@
 
 <h3> ブックマーク一覧</h3>
   <%= link_to 'New Bookmark', new_bookmark_path %>
-  <button type="button" class="btn btn-default" aria-label="Left Align">
-    <span class="glyphicon glyphicon-align-left" aria-hidden="true"> aaaa</span>
-    </button>
   <div class="row">
   <% @bookmarks.each do |bookmark| %>
     <div class="col-md-1">

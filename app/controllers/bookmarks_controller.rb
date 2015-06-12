@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = Bookmark.all
+    @bookmarks = Bookmark.order("created_at DESC")
   end
 
   # GET /bookmarks/1
@@ -27,7 +27,12 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = Bookmark.new(bookmark_params)
     
-   link_object = LinkThumbnailer.generate(@bookmark.url)
+    begin 
+    link_object = LinkThumbnailer.generate(@bookmark.url)
+    rescue LinkThumbnailer::Exceptions => e
+    # 
+    raise e  
+    end
     @bookmark.title = link_object.title
     @bookmark.favicon = link_object.favicon
     @bookmark.object_description = link_object.description

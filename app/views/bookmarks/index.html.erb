@@ -9,7 +9,7 @@
   
     <blockquote>
     <p> <%= bookmark.created_at.to_s(:published_on) %></p>
-    <a href="#" class="thumbnail">
+    <a href= <%=bookmark.url%> class="thumbnail">
     <img src=<%= bookmark.object_image%>  alt="Generic placeholder thumbnail">
     </a>
     <div class="caption">

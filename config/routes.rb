@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :bookmarks
 
   resources :users
+  match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.

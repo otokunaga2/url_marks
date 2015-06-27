@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users
   match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
+  match 'search', to: 'bookmarks#search', via: 'post'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,11 +1,20 @@
 require 'link_thumbnailer'
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+  before_action :set_bookmark, only: [:show, :edit, :update, :destroy, :search]
 
   # GET /bookmarks
   # GET /bookmarks.json
   def index
     @bookmarks = Bookmark.order("created_at DESC")
+  end
+  #検索機能を実現するためのメソッド
+  def search
+    @bookmarks = Bookmark.search(params[:search])
+    if @bookmarks.size > 0
+      render
+    else
+      render json: 'no data'
+    end
   end
 
   # GET /bookmarks/1

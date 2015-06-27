@@ -1,0 +1,12 @@
+/home/tokunaga/.rbenv/versions/2.2.0/bin/ruby -r ./siteconf20150627-26386-1tvh5gw.rb extconf.rb
+
+make "DESTDIR=" clean
+make: *** ターゲット 'clean' を make するルールがありません.  中止.
+
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+make "DESTDIR=" install
+echo "Nada."
+Nada.

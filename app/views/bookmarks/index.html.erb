@@ -2,7 +2,8 @@
 
 <h3> ブックマーク一覧</h3>
   <div id="bigIcon">
-  <%= link_to 'New Bookmark' do%> <i class="icon-plus"></i>new<% end %>
+  <i class="icon-plus"></i>
+  <%= link_to 'New Bookmark', new_bookmark_path %> 
   </div>
   <div class="row">
   <% @bookmarks.each do |bookmark| %>

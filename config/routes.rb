@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   resources :bookmarks
 
   resources :users
+  match "/search", to: 'bookmarks#index', via: 'get'
+  #match 'bookmarks/search', to: 'bookmarks#search', via: ['post', 'gec']
   match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
-  match 'search', to: 'bookmarks#search', via: 'post'
   devise_for :users, :controllers => {
     :sessions       => "users/sessions",
     :registrations  => "users/registrations",

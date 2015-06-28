@@ -11,12 +11,20 @@ class BookmarksController < ApplicationController
   end
   #検索機能を実現するためのメソッド
   def search
-    @bookmarks = Bookmark.search(params[:search])
-    if @bookmarks.size > 0
-      render
-    else
-      render json: 'no data'
-    end
+    @query_bookmarks = Bookmark.search(search_params)
+    @bookmarks = @query_bookmarks
+    .result
+    .order(created_at: :desc)
+    .decorate
+    redirect_to '../views/bookmarks/search.html.erb'
+  end
+
+  def search_params
+     search_conditions = %i(
+      url my_description read_flag title favicon object_description object_image 
+      created_at updated_at user_id
+     )
+      params.require(:q).permit(search_conditions)
   end
 
   # GET /bookmarks/1
@@ -86,7 +94,7 @@ class BookmarksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+      #@bookmark = Bookmark.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

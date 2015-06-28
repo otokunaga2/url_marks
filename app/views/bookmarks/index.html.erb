@@ -26,13 +26,6 @@
     </blockquote>
 <% end %>
 <hr>
-<h3> 検索一覧</h3>
-<%= form_tag bookmark, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-<p>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag "Search", :name => nil %>
-</p>
-<% end %>
 
 <br>
 

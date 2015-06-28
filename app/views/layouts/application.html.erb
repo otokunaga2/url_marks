@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
+  <%= link_to "Sign in with Twitter",  user_omniauth_authorize_path(:twitter),  :class => 'navbar-link' %>
 </head>
 <body>
   <%= render 'layouts/header' %>

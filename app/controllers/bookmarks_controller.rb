@@ -1,6 +1,8 @@
 require 'link_thumbnailer'
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy, :search]
+  before_action :set_bookmark, only: [:show, :edit, :update, :destroy, :search] 
+  #認証されているかどうかをチェック
+  before_action :authenticate_user!
 
   # GET /bookmarks
   # GET /bookmarks.json

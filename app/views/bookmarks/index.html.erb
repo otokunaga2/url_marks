@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h3> ブックマーク一覧</h3>
-  <%= link_to 'New Bookmark', new_bookmark_path %>
+  <div id="bigIcon">
+  <%= link_to 'New Bookmark' do%> <i class="icon-plus"></i>new<% end %>
+  </div>
   <div class="row">
   <% @bookmarks.each do |bookmark| %>
     <div class="col-md-1">

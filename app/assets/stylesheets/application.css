@@ -15,5 +15,8 @@
  */
 
 .thumbnail {
-        max-width: 33%
+  max-width: 33%
+}
+#bigIcon{
+  font-size: 200%
 }

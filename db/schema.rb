@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607023056) do
+ActiveRecord::Schema.define(version: 20150628041150) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.string   "url"
@@ -38,8 +38,12 @@ ActiveRecord::Schema.define(version: 20150607023056) do
     t.string   "name"
     t.string   "password"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "uid",        default: "", null: false
+    t.string   "provider",   default: "", null: false
   end
+
+  add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
 
 end

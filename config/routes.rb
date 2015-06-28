@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
   match 'search', to: 'bookmarks#search', via: 'post'
-
+  devise_for :users, :controllers => {
+    :sessions       => "users/sessions",
+    :registrations  => "users/registrations",
+    :passwords      => "users/passwords",
+    :omniauth_callbacks => "users/omniauth_callbacks"
+  }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

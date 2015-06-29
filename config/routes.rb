@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :bookmarks
-
   resources :users
+  root  'static_pages#home'
+  match '/signup',  to: 'users#new',            via: 'get'
+
   match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
   match 'search', to: 'bookmarks#search', via: 'post'

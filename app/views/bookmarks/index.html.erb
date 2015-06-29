@@ -1,7 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h3> ブックマーク一覧</h3>
+
+  <div id="new_button">
+   <i class="icon-plus"></i>
   <%= link_to 'New Bookmark', new_bookmark_path %>
+  </div>
   <div class="row">
   <% @bookmarks.each do |bookmark| %>
     <div class="col-md-1">
@@ -26,15 +30,6 @@
     </blockquote>
 <% end %>
 <hr>
-<h3> 検索一覧</h3>
-<%= form_tag bookmark, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-<p>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag "Search", :name => nil %>
-</p>
-<% end %>
-
-<br>
 
 
 </div>

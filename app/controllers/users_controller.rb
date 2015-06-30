@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user,  only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -18,8 +19,19 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -69,5 +81,16 @@ class UsersController < ApplicationController
     def user_params
        params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
+    end
+    #before actions
+    def signed_in_user
+      #フレンドリーフォワーディングを実現
+      store_location
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
     end
 end

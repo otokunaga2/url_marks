@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @bookmarks = @user.bookmarks.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -83,11 +84,11 @@ class UsersController < ApplicationController
                                    :password_confirmation)
     end
     #before actions
-    def signed_in_user
-      #フレンドリーフォワーディングを実現
-      store_location
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
-    end
+    #def signed_in_user
+    #  #フレンドリーフォワーディングを実現
+    #  store_location
+    #  redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    #end
     
     def correct_user
       @user = User.find(params[:id])

@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_create :create_remember_token
-  has_many :bookmarks
+  #ユーザが破壊された時にブックマークも破棄する
+  has_many :bookmarks, dependent: :destroy
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
@@ -14,6 +15,12 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def feed
+    # このコードは準備段階です。
+    #     # 完全な実装は第11章「ユーザーをフォローする」を参照してください。
+    Bookmark.where("user_id = ?", id)
   end
 private
   def create_remember_token

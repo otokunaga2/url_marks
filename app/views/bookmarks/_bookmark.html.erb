@@ -1,0 +1,11 @@
+<li>
+  <span class="content"><%= bookmark.title %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(bookmark.created_at) %> ago.
+  </span>
+  <% if current_user?(bookmakr.user) %>
+    <%= link_to "delete", bookmark, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: bookmark.title %>
+  <% end %>
+</li>

@@ -1,11 +1,11 @@
 require 'link_thumbnailer'
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy, :search]
+  before_action :signed_in_user, :set_bookmark, only: [:show, :edit, :update, :destroy, :search]
 
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = Bookmark.order("created_at DESC")
+    @bookmarks = Bookmark
   end
   #検索機能を実現するためのメソッド
   def search
@@ -20,6 +20,8 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/1
   # GET /bookmarks/1.json
   def show
+    @user = User.find(params[:id])
+    @bookmarks = @user.bookmarks.paginate(page: params[:page])
   end
 
   # GET /bookmarks/new
@@ -34,13 +36,12 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark = current_user.bookmarks.build(bookmark_params)
     
     begin 
-    link_object = LinkThumbnailer.generate(@bookmark.url)
+      link_object = LinkThumbnailer.generate(@bookmark.url)
     rescue LinkThumbnailer::Exceptions => e
-    # 
-    raise e  
+      raise e  
     end
     @bookmark.title = link_object.title
     @bookmark.favicon = link_object.favicon
@@ -48,9 +49,12 @@ class BookmarksController < ApplicationController
     @bookmark.object_image = link_object.images.first.src.to_s
     respond_to do |format|
       if @bookmark.save
+        flash[:success] = "bookmark saved!"
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
         format.json { render :show, status: :created, location: @bookmark }
       else
+        @feed_items = []
+        render 'static_pages/home'
         format.html { render :new }
         format.json { render json: @bookmark.errors, status: :unprocessable_entity }
       end
@@ -75,16 +79,21 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1.json
   def destroy
     @bookmark.destroy
-    respond_to do |format|
-      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+     redirect_to root_url
+    #respond_to do |format|
+    #  format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bookmark
       @bookmark = Bookmark.find(params[:id])
+    end
+    def correct_user
+      @bookmark = current_user.bookmarks.find_by(id: params[:id])
+      redirect_to root_url if @bookmark.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

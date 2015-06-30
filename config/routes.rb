@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :bookmarks
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :bookmarks, only: [:create, :destroy]
 
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'

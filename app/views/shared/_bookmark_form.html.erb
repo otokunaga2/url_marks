@@ -1,7 +1,10 @@
 <%= form_for(@bookmark) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :url, placeholder: "New bookmark ..." %>
+    <%= f.text_field :url, placeholder: "http://example.com/..." %>
+  </div>
+  <div class="field">
+    <%= f.text_area :my_description, placeholder: "Enter your comments!" %>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>

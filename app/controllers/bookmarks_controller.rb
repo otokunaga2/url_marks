@@ -40,25 +40,28 @@ class BookmarksController < ApplicationController
     
     begin 
       link_object = LinkThumbnailer.generate(@bookmark.url)
-    rescue LinkThumbnailer::Exceptions => e
-      raise e  
+    rescue LinkThumbnailer::Exceptions
+      link_object = nil
+      #private method calling
+      skip_to_home
+    rescue Net::HTTP::Persistent::Error 
+      link_object = nil
+      #private method calling
+      skip_to_home
     end
-    @bookmark.title = link_object.title
-    @bookmark.favicon = link_object.favicon
-    @bookmark.object_description = link_object.description
-    @bookmark.object_image = link_object.images.first.src.to_s
-    respond_to do |format|
+      @bookmark.title = link_object.title
+      @bookmark.favicon = link_object.favicon
+      @bookmark.object_description = link_object.description
+      @bookmark.object_image = link_object.images.first.src.to_s
       if @bookmark.save
         flash[:success] = "bookmark saved!"
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
-        format.json { render :show, status: :created, location: @bookmark }
+        redirect_to root_url
       else
         @feed_items = []
         render 'static_pages/home'
-        format.html { render :new }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
+        #format.html { render :new }
+        #format.json { render json: @bookmark.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   # PATCH/PUT /bookmarks/1
@@ -99,5 +102,9 @@ class BookmarksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bookmark_params
       params.require(:bookmark).permit(:url, :my_description, :read_flag, :title, :favicon, :object_description, :object_image)
+    end
+    def skip_to_home
+      @feed_items = []
+      render 'static_pages/home'
     end
 end

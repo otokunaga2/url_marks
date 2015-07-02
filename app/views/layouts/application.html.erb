@@ -9,33 +9,28 @@
 </head>
 <script>
 cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
-  //css.insertRule(".ft0 { filter: invert(); }", 0 ); 
-function () { 
-// the css we are going to inject
-var css = 'html {-webkit-filter: invert(100%);' +
-    '-moz-filter: invert(100%);' + 
-    '-o-filter: invert(100%);' + 
-    '-ms-filter: invert(100%); }',
-
-head = document.getElementsByTagName('head')[0],
-style = document.createElement('style');
-
-// a hack, so you can "invert back" clicking the bookmarklet again
-if (!window.counter) { window.counter = 1;} else  { window.counter ++;
-if (window.counter % 2 == 0) { var css ='html {-webkit-filter: invert(0%); -moz-filter:    invert(0%); -o-filter: invert(0%); -ms-filter: invert(0%); }'}
- };
-
-style.type = 'text/css';
-if (style.styleSheet){
-style.styleSheet.cssText = css;
-} else {
-style.appendChild(document.createTextNode(css));
-}
-
-//injecting the css to the head
-head.appendChild(style);
-}());
+  $(function(){
+    $('img.gravatar').attr({'src': '/assets/konami.png','alt': 'no konami image'});
+    alert();
   });
+});
+$(document).ready(function(){
+    $(".thumbnails img").MyThumbnail({
+        thumbWidth:  80,
+        thumbHeight: 80,
+//      imageDivClass: :"myPic",    // 生成されるdivのclass
+//      bShowPointerCursor: false,  // trueの場合、カーソル形状cursor:pointerへ設定
+    });
+});
+
+$(document).ready(function(){
+    $(".big_thumbnails img").MyThumbnail({
+        thumbWidth:  120,
+        thumbHeight: 70,
+//      imageDivClass: :"myPic",    // 生成されるdivのclass
+//      bShowPointerCursor: false,  // trueの場合、カーソル形状cursor:pointerへ設定
+    });
+});
 </script>
 <body>
   <%= render 'layouts/header' %>

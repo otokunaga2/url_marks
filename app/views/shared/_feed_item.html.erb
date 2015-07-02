@@ -1,5 +1,7 @@
 <li id="<%= feed_item.id %>">
+  <div class="big_thumbnails">
   <%= link_to image_tag(feed_item.object_image), feed_item.url %>
+  </div>
     <span class="user">
       <%= link_to feed_item.user.name, feed_item.user %>
     </span>

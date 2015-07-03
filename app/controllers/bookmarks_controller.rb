@@ -9,18 +9,11 @@ class BookmarksController < ApplicationController
     @q = Product.search
   end
 
-  def search_index
-    @q = Product.search
-    render :template => "bookmark/search"
+  def search
+    @bookmarks = Bookmark.where("my_description like ?" , "%#{params[:name]}%")
+    render :action => 'index'
   end
   #検索機能を実現するためのメソッド
-  def search
-    @q = Product.search(search_params)
-    @products = @q
-      .result
-      .order(created_at: :desc)
-      .decorate
-  end
 
   # GET /bookmarks/1
   # GET /bookmarks/1.json

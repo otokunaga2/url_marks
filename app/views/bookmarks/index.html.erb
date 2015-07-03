@@ -30,11 +30,10 @@
     </blockquote>
 <% end %>
 <hr>
-<<<<<<< HEAD
-=======
 
-<br>
->>>>>>> origin/master
-
+<%= form_tag(:controller=>'bookmarks', :action=>'search') do %>
+<%= text_field_tag :my_description %>
+<%= submit_tag "検索" %>
+<% end %>
 
 </div>

@@ -7,6 +7,7 @@
   <%= link_to 'New Bookmark', new_bookmark_path %>
   </div>
   <div class="row">
+  <% unless @bookmarks == nil then %>
   <% @bookmarks.each do |bookmark| %>
     <div class="col-md-1">
     <div class="thumbnail-temp">
@@ -28,7 +29,9 @@
     </div>
     
     </blockquote>
-<% end %>
+    <% end %>
+   <% end %>
+
 <hr>
 
 <%= form_tag(:controller=>'bookmarks', :action=>'search') do %>

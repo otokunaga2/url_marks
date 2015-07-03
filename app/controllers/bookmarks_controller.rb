@@ -6,11 +6,10 @@ class BookmarksController < ApplicationController
   # GET /bookmarks.json
   def index
     @bookmarks = Bookmark
-    @q = Product.search
   end
 
   def search
-    @bookmarks = Bookmark.where("my_description like ?" , "%#{params[:name]}%")
+    @bookmarks = Bookmark.where("my_description like ?" , "%#{params[:my_description]}%")
     render :action => 'index'
   end
   #検索機能を実現するためのメソッド
@@ -88,16 +87,18 @@ class BookmarksController < ApplicationController
   end
 
   private
-    def search_params
-      search_conditions = %i(
-        url_cont my_description_cont title_cont
-      )
-      params.require(:q).permit(search_conditions)
-    end
+    #def search_params
+    #  search_conditions = %i(
+    #    url_cont my_description_cont title_cont
+    #  )
+    #  params.require(:q).permit(search_conditions)
+    #end
     # Use callbacks to share common setup or constraints between actions.
     # def set_bookmark
     #  @bookmark = Bookmark.find(params[:id])
     #end
+    def set_bookmark
+    end
     def correct_user
       @bookmark = current_user.bookmarks.find_by(id: params[:id])
       redirect_to root_url if @bookmark.nil?

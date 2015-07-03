@@ -6,15 +6,20 @@ class BookmarksController < ApplicationController
   # GET /bookmarks.json
   def index
     @bookmarks = Bookmark
+    @q = Product.search
+  end
+
+  def search_index
+    @q = Product.search
+    render :template => "bookmark/search"
   end
   #検索機能を実現するためのメソッド
   def search
-    @bookmarks = Bookmark.search(params[:search])
-    if @bookmarks.size > 0
-      render
-    else
-      render json: 'no data'
-    end
+    @q = Product.search(search_params)
+    @products = @q
+      .result
+      .order(created_at: :desc)
+      .decorate
   end
 
   # GET /bookmarks/1
@@ -90,10 +95,16 @@ class BookmarksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+    def search_params
+      search_conditions = %i(
+        url_cont my_description_cont title_cont
+      )
+      params.require(:q).permit(search_conditions)
     end
+    # Use callbacks to share common setup or constraints between actions.
+    # def set_bookmark
+    #  @bookmark = Bookmark.find(params[:id])
+    #end
     def correct_user
       @bookmark = current_user.bookmarks.find_by(id: params[:id])
       redirect_to root_url if @bookmark.nil?

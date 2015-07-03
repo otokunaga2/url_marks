@@ -1,0 +1,6 @@
+<%= search_form_for(@q, url: search_bookmarks_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+
+  <%= f.text_field :url_cont, class: 'form-control' %>
+  <%= f.text_field :my_description_cont, class: 'form-control' %>
+
+<% end %>

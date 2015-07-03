@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   match '/', to: 'bookmarks#index', via: 'get'
   match 'dynamic_pages', to: 'dynamic_pages#home' ,via: 'get'
   match 'search', to: 'bookmarks#search', via: 'post'
+  match '/search', to: 'bookmarks#search', via: 'get'
   #devise_for :users, :controllers => {
   #  :sessions       => "users/sessions",
   #  :registrations  => "users/registrations",

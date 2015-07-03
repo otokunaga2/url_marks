@@ -8,21 +8,55 @@
   <%= render 'layouts/shim' %>
 </head>
 <script>
+var run_counter = 0;
+function judgeCounter(counter){
+  if(counter == 0){
+    return true;
+  }else{
+    return false;
+  }
+};
+
+function changeImageToKonami(image_number){
+    var OLD_KONAMI_IMAGE=1;
+    var NEW_KONAMI_IMAGE=2;
+    var IMAGE_SRC;
+    switch(image_number){
+      case OLD_KONAMI_IMAGE:
+        IMAGE_SRC='/assets/konami.jpg';
+        break;
+      case NEW_KONAMI_IMAGE:
+        IMAGE_SRC='/assets/konami.png';
+        break;
+      default:
+      break;
+    }
+    if(judgeCounter(run_counter)){
+      $(function(){
+        $('img.gravatar').attr({'src': IMAGE_SRC,'alt': 'no konami image'});
+        resizeGravatar();
+      });
+    }else{
+      alert('コナミコマンド打ち過ぎわろたw');
+    }
+    run_counter = run_counter + 1;
+}
+
 cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
-  $(function(){
-    $('img.gravatar').attr({'src': '/assets/konami.png','alt': 'no konami image'});
-    alert();
-  });
-});
-$(document).ready(function(){
-    $(".thumbnails img").MyThumbnail({
-        thumbWidth:  80,
-        thumbHeight: 80,
-//      imageDivClass: :"myPic",    // 生成されるdivのclass
-//      bShowPointerCursor: false,  // trueの場合、カーソル形状cursor:pointerへ設定
-    });
+  changeImageToKonami(1);
 });
 
+cheet('↑ ↑ ↓ ↓ ← → ← → a b', function () {
+  changeImageToKonami(2);
+});
+function resizeGravatar(){
+  $(document).ready(function(){
+      $('img.gravatar').MyThumbnail({
+          thumbHeight: 80,
+          thumbWidth: 120 
+      });
+  });
+};
 $(document).ready(function(){
     $(".big_thumbnails img").MyThumbnail({
         thumbWidth:  120,
